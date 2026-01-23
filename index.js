@@ -20,7 +20,9 @@ let books = [];
 
 app.get("/", async (req, res) => {
   try {
-    const result = await db.query("SELECT * from books ORDER BY id ASC");
+    const result = await db.query(
+      "SELECT id, title, description, TO_CHAR(read_date, 'YYYY-MM-DD') AS read_date, rate FROM books ORDER BY id ASC",
+    );
 
     books = result.rows;
     res.render("index.ejs", {
@@ -62,9 +64,23 @@ app.get("/edit/:id", async (req, res) => {
   }
 });
 //amanha a gente continua
-app.post("update/:id", async (req, res) => {
-  console.log(req.params);
-  res.redirect("/");
+app.post("/update/:id", async (req, res) => {
+  try {
+    await db.query(
+      "UPDATE books SET title = $1, description = $2, read_date = $3, rate = $4 WHERE id = $5",
+      [
+        req.body.title,
+        req.body.description,
+        req.body.read_date,
+        req.body.rate,
+        req.params.id,
+      ],
+    );
+    res.redirect("/");
+  } catch (err) {
+    res.redirect("/");
+    console.log(err);
+  }
 });
 
 app.post("/delete/:id", async (req, res) => {

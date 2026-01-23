@@ -24,7 +24,7 @@
         type="date"
         name="read_date"
         id="read_date"
-        value="<%= book[0].read_date %>"
+        value="<%= book[0].read_date?.toISOString().split('T')[0] %>"
       />
       <br />
       <br />

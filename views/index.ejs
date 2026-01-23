@@ -3,31 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/main.css">
     <title>Note Book</title>
   </head>
   <body>
     <div class="container">
-      <h1>The books that I read</h1>
-      <h4>
-        Below is the list of all books that I read and their reviews based on my
-        bias. I hope you enjoy it. 
-      </h4>
-      <a href="/new"><button>Add New Book</button></a>
-      <hr>
-      <% if (books.length === 0){ %>
-          <h2>None books registred.</h2>
-          <%} else{ %>
-            <% books.forEach((book) =>{ %>
-              <h2><%= book.title %></h2>
-              <h2><%= book.description %></h2>
-              <h2><%= book.read_date %></h2>
-              <h2><%= book.rate %></h2>
-              <form action="/delete/<%= book.id %>" method="post">
-                <button type="submit">Delete</button>
-              </form>
-              <a href="/edit/<%= book.id %>"><button>Edit</button></a>
-              <hr>
-            <% })} %>
+      <div class="title">
+        <h1>The books that I read</h1>
+        <h4>
+          Below is the list of all books that I read and their reviews based on my
+          bias. I hope you enjoy it. 
+        </h4>
+        <a href="/new"><button>Add New Book</button></a>
+        <hr>
+      </div>
+      <div class="cards">
+        <% if (books.length === 0){ %>
+            <h2>None books registred.</h2>
+            <%} else{ %>
+              <% books.forEach((book) =>{ %>
+                <div class="littleCard">
+                  <h2><%= book.title %></h2>
+                  <h3><%= book.description %></h2>
+                  <h4><%= book.read_date %></h2>
+                  <h4><%= book.rate %></h2>
+                  <a href="/edit/<%= book.id %>"><button>Edit</button></a>
+                  <form action="/delete/<%= book.id %>" method="post">
+                    <button type="submit">Delete</button>
+                  </form>
+                  
+                  
+                </div>
+              <% })} %>
+        </div>
+        
     </div>
   </body>
 </html>

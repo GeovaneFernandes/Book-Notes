@@ -6,6 +6,28 @@
     <title>Note Book</title>
   </head>
   <body>
-    Hello World
+    <div class="container">
+      <h1>The books that I read</h1>
+      <h4>
+        Below is the list of all books that I read and their reviews based on my
+        bias. I hope you enjoy it. 
+      </h4>
+      <a href="/new"><button>Add New Book</button></a>
+      <hr>
+      <% if (books.length === 0){ %>
+          <h2>None books registred.</h2>
+          <%} else{ %>
+            <% books.forEach((book) =>{ %>
+              <h2><%= book.title %></h2>
+              <h2><%= book.description %></h2>
+              <h2><%= book.read_date %></h2>
+              <h2><%= book.rate %></h2>
+              <form action="/delete/<%= book.id %>" method="post">
+                <button type="submit">Delete</button>
+              </form>
+              <a href="/edit/<%= book.id %>"><button>Edit</button></a>
+              <hr>
+            <% })} %>
+    </div>
   </body>
 </html>
